@@ -6,7 +6,7 @@ Created on Sat Jul  4 11:26:41 2020
 """
 
 
-from flask import Flask,render_template,request,redirect
+from flask import Flask,render_template,request,redirect,url_for
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 
@@ -30,6 +30,8 @@ def index():
         new_task=Todo(content=task_content)
         
         try:
+            if new_task.content=="":
+                return "Content is empty please add a task"
             db.session.add(new_task)
             db.session.commit()
             return redirect("/")
